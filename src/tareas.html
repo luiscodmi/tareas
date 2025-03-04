@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+
+    <style>
+      li {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      button {
+        height: fit-content;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mí Lista de Tareas:</h1>
+
+    <input type="text" id="taskInput" placeholder="Escribe tú nueva tarea" />
+    <button onclick="addTask()">Agregar Tarea</button>
+
+    <ul id="taskList"></ul>
+
+    <script src="../dist/hacer.js"></script>
+  </body>
+</html>

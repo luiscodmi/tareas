@@ -1,5 +1,5 @@
 interface Task {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   complete: boolean;
@@ -8,27 +8,34 @@ interface Task {
 class List {
   private tasks: Task[] = [];
 
-  addTask(title: string, description: string): string {
+  addTask(title: string, description: string): Task {
     const newTask: Task = {
+      id: Math.random().toString(),
       title,
       description,
       complete: false,
     };
 
     this.tasks.push(newTask);
-    return `Nueva tarea agragada: ${title}`;
+    return newTask;
   }
 
-  editTask(id: string, newTitle: string, newDescription: string) {
+  editTask(id: string, newTitle: string, newDescription: string): Task | null {
+    let edited: Task | null = null;
+
     this.tasks.find((ed, i) => {
       if (ed.id === id) {
-        return (this.tasks[i] = {
-          title: newTitle,
-          description: newDescription,
-          complete: ed.complete,
-        });
+        return (edited = this.tasks[i] =
+          {
+            id,
+            title: newTitle,
+            description: newDescription,
+            complete: ed.complete,
+          });
       }
     });
+
+    return edited;
   }
 
   deleteTask(id: string) {
@@ -51,8 +58,8 @@ class List {
     const task = this.tasks.find((t) => t.id === id);
 
     if (task) {
-      task.complete = true;
-      return `La tarea ${task.title} ha sido comlpetada!`;
+      task.complete = !task.complete;
+      return { success: true };
     }
   }
 }

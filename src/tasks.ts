@@ -1,4 +1,4 @@
-interface Tasks {
+interface Task {
   id?: string;
   title: string;
   description: string;
@@ -6,10 +6,10 @@ interface Tasks {
 }
 
 class List {
-  private tasks: Tasks[] = [];
+  private tasks: Task[] = [];
 
   addTask(title: string, description: string): string {
-    const newTask: Tasks = {
+    const newTask: Task = {
       title,
       description,
       complete: false,
@@ -39,7 +39,7 @@ class List {
     }
   }
 
-  listTasks(): Tasks[] | string {
+  listTasks(): Task[] | string {
     if (this.tasks.length === 0) {
       return "No hay tareas en la lista";
     } else {

@@ -62,7 +62,7 @@ class List {
       return { success: true };
     }
 
-    return { success: true };
+    return { success: false };
   }
 }
 

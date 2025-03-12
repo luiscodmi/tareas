@@ -5,6 +5,10 @@ interface Task {
   complete: boolean;
 }
 
+interface SuccessOperation {
+  success: boolean;
+}
+
 class List {
   private tasks: Task[] = [];
 
@@ -38,7 +42,7 @@ class List {
     return edited;
   }
 
-  deleteTask(id: string) {
+  deleteTask(id: string): void {
     const taskIndex = this.tasks.findIndex((i) => i.id === id);
 
     if (taskIndex !== -1) {
@@ -46,21 +50,19 @@ class List {
     }
   }
 
-  listTasks(): Task[] | string {
-    if (this.tasks.length === 0) {
-      return "No hay tareas en la lista";
-    } else {
-      return this.tasks;
-    }
+  listTasks(): Task[] {
+    return this.tasks;
   }
 
-  completeTask(id: string) {
+  completeTask(id: string): SuccessOperation {
     const task = this.tasks.find((t) => t.id === id);
 
     if (task) {
       task.complete = !task.complete;
       return { success: true };
     }
+
+    return { success: true };
   }
 }
 

@@ -1,4 +1,4 @@
-interface Task {
+export interface Task {
   id: string;
   title: string;
   description: string;
@@ -9,7 +9,7 @@ interface SuccessOperation {
   success: boolean;
 }
 
-class List {
+export class List {
   private tasks: Task[] = [];
 
   addTask(title: string, description: string): Task {

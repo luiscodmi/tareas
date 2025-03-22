@@ -1,3 +1,5 @@
+import { User, ListUsers } from "./users";
+
 export interface Task {
   id: string;
   title: string;
@@ -9,10 +11,19 @@ interface SuccessOperation {
   success: boolean;
 }
 
-export class List {
+export class ListTask {
   private tasks: Task[] = [];
+  public usersList: User[] = [];
 
-  addTask(title: string, description: string): Task {
+  constructor() {
+    // this.usersList = new ListUsers();
+  }
+
+  addTask(userId: string, title: string, description: string): Task {
+    const user = this.usersList.find((user) => user.userId === userId);
+
+    if (user) throw new Error("El Usuario no existe");
+
     const newTask: Task = {
       id: Math.random().toString(),
       title,
@@ -65,17 +76,3 @@ export class List {
     return { success: false };
   }
 }
-
-const list = new List();
-
-list.listTasks();
-
-list.addTask("Mi tarea", "Tengo que volver a estudiar los cursos");
-list.addTask("Repaso", "atencion a deficientes");
-list.addTask("compra", "buscar los mandados");
-
-list.editTask("aaa", "otra cosa", "hay que repasar");
-
-list.listTasks();
-
-list.completeTask("bbb");

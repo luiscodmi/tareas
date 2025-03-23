@@ -7,16 +7,12 @@ export interface User {
   tasks: Task[];
 }
 
-interface SuccessOperation {
-  success: boolean;
-}
-
 export class ListUsers {
   public usersList: User[] = [];
   private tasksList: ListTask;
 
-  constructor() {
-    this.tasksList = new ListTask();
+  constructor(tasksList: ListTask) {
+    this.tasksList = tasksList;
   }
 
   addUser(userId: string, name: string, tasks: Task[]): User {
@@ -66,25 +62,20 @@ export class ListUsers {
     return this.usersList;
   }
 
-  addTaskToUser(userId: string, title: string, description: string): void {
-    this.usersList.find((user) => {
-      if (user.userId === userId) {
-        this.tasksList.addTask(userId, title, description);
+  addTaskToUser(userId: string, title: string, description: string) {
+    const user = this.usersList.find((user) => user.userId === userId);
 
-        return { success: true };
-      }
+    if (user) {
+      const newTask = this.tasksList.addTask(title, description);
+      user.tasks.push(newTask);
 
-      return { success: false };
-    });
+      return { success: true };
+    }
+
+    return { success: false };
   }
 
-  getUserTasks(id: string): Task[] {
-    this.usersList.find((user) => {
-      if (user.id === id) {
-        return this.tasksList.listTasks();
-      }
-    });
-
-    return this.tasksList.listTasks();
+  getUserById(id: string): User | undefined {
+    return this.usersList.find((user) => user.userId === id);
   }
 }

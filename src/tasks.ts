@@ -1,5 +1,3 @@
-import { User, ListUsers } from "./users";
-
 export interface Task {
   id: string;
   title: string;
@@ -13,17 +11,8 @@ interface SuccessOperation {
 
 export class ListTask {
   private tasks: Task[] = [];
-  public usersList: User[] = [];
 
-  constructor() {
-    // this.usersList = new ListUsers();
-  }
-
-  addTask(userId: string, title: string, description: string): Task {
-    const user = this.usersList.find((user) => user.userId === userId);
-
-    if (user) throw new Error("El Usuario no existe");
-
+  addTask(title: string, description: string): Task {
     const newTask: Task = {
       id: Math.random().toString(),
       title,
@@ -35,8 +24,16 @@ export class ListTask {
     return newTask;
   }
 
-  editTask(id: string, newTitle: string, newDescription: string): Task | null {
-    let edited: Task | null = null;
+  getTaskById(id: string): Task | undefined {
+    return this.tasks.find((task) => task.id === id);
+  }
+
+  editTask(
+    id: string,
+    newTitle: string,
+    newDescription: string
+  ): Task | undefined {
+    let edited = this.getTaskById(id);
 
     this.tasks.find((ed, i) => {
       if (ed.id === id) {

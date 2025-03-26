@@ -1,4 +1,4 @@
-import { ListTask, Task } from "./tasks";
+import { TaskService, Task } from "./tasks";
 
 export interface User {
   id: string;
@@ -7,11 +7,11 @@ export interface User {
   tasks: Task[];
 }
 
-export class ListUsers {
+export class UserSerice {
   public usersList: User[] = [];
-  private tasksList: ListTask;
+  private tasksList: TaskService;
 
-  constructor(tasksList: ListTask) {
+  constructor(tasksList: TaskService) {
     this.tasksList = tasksList;
   }
 

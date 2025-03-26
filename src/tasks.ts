@@ -9,7 +9,7 @@ interface SuccessOperation {
   success: boolean;
 }
 
-export class ListTask {
+export class TaskService {
   private tasks: Task[] = [];
 
   addTask(title: string, description: string): Task {

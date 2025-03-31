@@ -1,4 +1,4 @@
-interface Task {
+export interface Task {
   id: string;
   title: string;
   description: string;
@@ -9,7 +9,7 @@ interface SuccessOperation {
   success: boolean;
 }
 
-class List {
+export class TaskService {
   private tasks: Task[] = [];
 
   addTask(title: string, description: string): Task {
@@ -24,8 +24,16 @@ class List {
     return newTask;
   }
 
-  editTask(id: string, newTitle: string, newDescription: string): Task | null {
-    let edited: Task | null = null;
+  getTaskById(id: string): Task | undefined {
+    return this.tasks.find((task) => task.id === id);
+  }
+
+  editTask(
+    id: string,
+    newTitle: string,
+    newDescription: string
+  ): Task | undefined {
+    let edited = this.getTaskById(id);
 
     this.tasks.find((ed, i) => {
       if (ed.id === id) {
@@ -65,17 +73,3 @@ class List {
     return { success: false };
   }
 }
-
-const list = new List();
-
-list.listTasks();
-
-list.addTask("Mi tarea", "Tengo que volver a estudiar los cursos");
-list.addTask("Repaso", "atencion a deficientes");
-list.addTask("compra", "buscar los mandados");
-
-list.editTask("aaa", "otra cosa", "hay que repasar");
-
-list.listTasks();
-
-list.completeTask("bbb");
